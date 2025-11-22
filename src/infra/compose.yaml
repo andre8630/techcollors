@@ -3,6 +3,6 @@ services:
     container_name: "techcollors"
     image: "postgres:17.5-alpine3.22"
     env_file:
-      - .env.development
+      - ../../.env.development
     ports:
       - "5432:5432"
