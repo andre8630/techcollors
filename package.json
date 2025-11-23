@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "test:watch": "jest --watchAll --runInBand --verbose ",
-    "dev": "next dev",
+    "dev": "yarn services:up && next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "services:down": "docker compose -f src/infra/compose.yaml down",
+    "services:up": "docker compose -f src/infra/compose.yaml up -d"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
