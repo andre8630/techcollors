@@ -16,4 +16,8 @@ export const ButtonStyled = styled.button`
   &:hover {
     border: 2px solid rgba(255, 255, 255, 1);
   }
+
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
 `;

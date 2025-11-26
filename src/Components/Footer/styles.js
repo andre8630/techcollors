@@ -9,6 +9,7 @@ export const Div = styled.div`
   justify-content: flex-start;
   align-items: center;
   background: #0b0b0cef;
+  background-size: 100%;
 `;
 
 export const DivContent = styled.div`
