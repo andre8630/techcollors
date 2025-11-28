@@ -3,20 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "migrations:create": "node-pg-migrate create -m src/infra/migrations",
-    "migrations:up": "node-pg-migrate -m src/infra/migrations --envPath .env.development up",
-    "test:watch": "jest --watchAll --runInBand --verbose ",
+    "wait-postgres": "node src/infra/scripts/wait-for-postgres.js",
     "test": "jest --runInBand --verbose",
-    "dev": "yarn services:up && next dev",
+    "test:watch": "jest --watchAll --runInBand --verbose ",
+    "dev": "yarn services:up && yarn wait-postgres && yarn migrations:up && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "migrations:create": "node-pg-migrate create -m src/infra/migrations",
+    "migrations:up": "node-pg-migrate -m src/infra/migrations --envPath .env.development up",
     "services:down": "docker compose -f src/infra/compose.yaml down",
+    "services:stop": "docker compose -f src/infra/compose.yaml stop",
     "services:up": "docker compose -f src/infra/compose.yaml up -d"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "browserslist": "^4.28.0",
     "dotenv": "^17.2.3",
     "dotenv-expand": "^12.0.3",
     "jest": "^30.2.0",
@@ -33,6 +36,7 @@
   "devDependencies": {
     "babel-plugin-react-compiler": "1.0.0",
     "babel-plugin-styled-components": "^2.1.4",
+    "baseline-browser-mapping": "^2.8.32",
     "eslint": "^9",
     "eslint-config-next": "16.0.3"
   }
