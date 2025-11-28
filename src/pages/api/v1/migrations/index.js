@@ -3,6 +3,12 @@ import migrationRunner from "node-pg-migrate";
 import { join } from "node:path";
 
 async function migrations(request, respose) {
+  const allowMethod = ["GET", "POST"];
+  if (!allowMethod.includes(request.method)) {
+    return respose.status(405).json({
+      error: "Method not allowed",
+    });
+  }
   const dbClient = await database.getNewClient();
   const defaultMigrationOptions = {
     dbClient: dbClient,
@@ -12,27 +18,31 @@ async function migrations(request, respose) {
     verbose: true,
     migrationsTable: "pgmigrations",
   };
+  try {
+    if (request.method === "POST") {
+      const migrations = await migrationRunner({
+        ...defaultMigrationOptions,
+        dryRun: false,
+      });
 
-  if (request.method === "POST") {
-    const migrations = await migrationRunner({
-      ...defaultMigrationOptions,
-      dryRun: false,
-    });
+      if (migrations.length > 0) {
+        return respose.status(201).json(migrations);
+      }
 
-    await dbClient.end();
-    if (migrations.length > 0) {
-      return respose.status(201).json(migrations);
+      return respose.status(200).json(migrations);
     }
 
-    return respose.status(200).json(migrations);
-  }
+    if (request.method === "GET") {
+      const migrations = await migrationRunner({
+        ...defaultMigrationOptions,
+      });
 
-  if (request.method === "GET") {
-    const migrations = await migrationRunner({
-      ...defaultMigrationOptions,
-    });
+      return respose.status(200).json(migrations);
+    }
+  } catch (error) {
+    console.log({ error: "Method not allowed" });
+  } finally {
     await dbClient.end();
-    return respose.status(200).json(migrations);
   }
 }
 
