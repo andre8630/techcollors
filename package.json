@@ -10,6 +10,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "lint:eslint:check": "next lint --dir ./",
+    "lint:prettier:check": "prettier --check .",
+    "lint:prettier:fix": "prettier --write .",
     "migrations:create": "node-pg-migrate create -m src/infra/migrations",
     "migrations:up": "node-pg-migrate -m src/infra/migrations --envPath .env.development up",
     "services:down": "docker compose -f src/infra/compose.yaml down",
@@ -40,6 +43,7 @@
     "baseline-browser-mapping": "^2.8.32",
     "concurrently": "8.2.2",
     "eslint": "^9",
-    "eslint-config-next": "16.0.3"
+    "eslint-config-next": "16.0.3",
+    "prettier": "^3.7.2"
   }
 }
