@@ -38,6 +38,8 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "19.2.2",
     "babel-plugin-react-compiler": "1.0.0",
     "babel-plugin-styled-components": "^2.1.4",
     "baseline-browser-mapping": "^2.8.32",
