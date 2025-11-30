@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "lint:eslint:check": "next lint --dir ./",
+    "lint:eslint:check": "yarn lint .",
     "lint:prettier:check": "prettier --check .",
     "lint:prettier:fix": "prettier --write .",
     "migrations:create": "node-pg-migrate create -m src/infra/migrations",
@@ -42,8 +42,8 @@
     "babel-plugin-styled-components": "^2.1.4",
     "baseline-browser-mapping": "^2.8.32",
     "concurrently": "8.2.2",
-    "eslint": "^9",
-    "eslint-config-next": "16.0.3",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.0.5",
     "prettier": "^3.7.2"
   }
 }
