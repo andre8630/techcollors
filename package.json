@@ -17,7 +17,8 @@
     "migrations:up": "node-pg-migrate -m src/infra/migrations --envPath .env.development up",
     "services:down": "docker compose -f src/infra/compose.yaml down",
     "services:stop": "docker compose -f src/infra/compose.yaml stop",
-    "services:up": "docker compose -f src/infra/compose.yaml up -d"
+    "services:up": "docker compose -f src/infra/compose.yaml up -d",
+    "commit": "cz"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -43,9 +44,16 @@
     "babel-plugin-react-compiler": "1.0.0",
     "babel-plugin-styled-components": "^2.1.4",
     "baseline-browser-mapping": "^2.8.32",
+    "commitizen": "^4.3.1",
     "concurrently": "8.2.2",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.0.5",
     "prettier": "^3.7.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
