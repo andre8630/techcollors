@@ -13,6 +13,6 @@ jobs:
         with:
           node-version: "latest"
 
-      - run: yarn install --immutable
+      - run: npm i
 
-      - run: yarn test
+      - run: npm run test
