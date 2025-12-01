@@ -13,9 +13,8 @@ jobs:
         with:
           node-version: "latest"
 
-      - run: yarn install --immutable
-
-      - run: yarn lint:prettier:check
+      - run: npm i
+      - run: npm run lint:prettier:check
 
   eslint:
     name: Eslint
@@ -27,6 +26,6 @@ jobs:
         with:
           node-version: "latest"
 
-      - run: yarn install --immutable
+      - run: npm i
 
-      - run: yarn lint:eslint:check
+      - run: npm run lint:eslint:check
