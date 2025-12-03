@@ -5,7 +5,7 @@
   "scripts": {
     "wait-postgres": "node src/infra/scripts/wait-for-postgres.js",
     "test": "npm run services:up  && concurrently -n next,jest --hide next -k -s first \"next dev\" \"jest --silent --runInBand --verbose\"",
-    "test:watch": "jest --watchAll --runInBand --verbose ",
+    "test:watch": "jest --watchAll --silent --runInBand --verbose ",
     "dev": "npm run services:up && npm run wait-postgres && npm run migrations:up && next dev",
     "build": "next build",
     "start": "next start",
