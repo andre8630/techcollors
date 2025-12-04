@@ -11,7 +11,9 @@ export default function StatuPage() {
     refreshInterval: 20000,
   });
   console.log(data);
-  if (isLoading) return <div>Carregando</div>;
+  if (isLoading)
+    return <h1 style={{ color: "rgba(216, 139, 24, 1)" }}>Carregando...</h1>;
+
   if (!isLoading)
     return (
       <>
