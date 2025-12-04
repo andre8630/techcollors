@@ -6,10 +6,12 @@ async function query(queryObject) {
     client = await getNewClient();
     const result = await client.query(queryObject);
     return result;
-  } catch {
-    console.log("Erro de conexao com banco");
+  } catch (error) {
+    console.log("Erro dentro do catcher do database.js");
+    console.error(error);
+    throw error;
   } finally {
-    await client.end();
+    await client?.end();
   }
 }
 
