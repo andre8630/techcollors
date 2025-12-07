@@ -11,7 +11,7 @@
     "services:up": "docker compose -f src/infra/compose.yaml up -d",
     "wait-postgres": "node src/infra/scripts/wait-for-postgres.js",
     "test": "npm run services:up  && concurrently -n next,jest --hide next -k -s first \"next dev\" \"jest --silent --runInBand --verbose\"",
-    "test:watch": "jest --watchAll --silent --runInBand --verbose ",
+    "test:watch": "jest --watchAll --runInBand --verbose ",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -38,7 +38,8 @@
     "react-dom": "19.2.1",
     "styled-components": "6.1.19",
     "swr": "2.3.7",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "uuid": "11.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "19.3.0",
