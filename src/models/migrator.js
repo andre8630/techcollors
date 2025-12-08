@@ -1,14 +1,13 @@
 import database from "src/infra/database";
 import migrationRunner from "node-pg-migrate";
-import { resolve } from "node:path";
+import { join } from "node:path";
 
 const defaultMigrationOptions = {
   dryRun: true,
-  dir: resolve("src", "infra", "migrations"),
+  dir: join(process.cwd(), "src", "infra", "migrations"),
   direction: "up",
   verbose: true,
   migrationsTable: "pgmigrations",
-  log: () => {},
 };
 
 async function listPendingMigrations() {
