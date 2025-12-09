@@ -6,13 +6,12 @@ import password from "src/models/password";
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
   await orchestrator.cleanDatabase();
+  await orchestrator.runPendingMigrations();
 });
 
 describe("POST /api/v1/users", () => {
   describe("Anonymous user", () => {
     test("With unique and valid data", async () => {
-      await orchestrator.runPendingMigrations();
-
       const response = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
         headers: {
@@ -47,11 +46,11 @@ describe("POST /api/v1/users", () => {
       const userInDatabase = await user.findOnByUsername("AndreLuis");
       const correctPasswordMatch = await password.compare(
         "senha123",
-        userInDatabase.password
+        userInDatabase.password,
       );
       const incorrectPasswordMatch = await password.compare(
         "senhaErrada",
-        userInDatabase.password
+        userInDatabase.password,
       );
 
       expect(correctPasswordMatch).toBe(true);
@@ -59,8 +58,6 @@ describe("POST /api/v1/users", () => {
     });
 
     test("With duplicate email", async () => {
-      await orchestrator.runPendingMigrations();
-
       const response1 = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
         headers: {
@@ -99,8 +96,6 @@ describe("POST /api/v1/users", () => {
     });
 
     test("With duplicate username", async () => {
-      await orchestrator.runPendingMigrations();
-
       const response1 = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
         headers: {

@@ -26,7 +26,7 @@ describe("GET /api/v1/users/[username]", () => {
       expect(response1.status).toBe(201);
 
       const response2 = await fetch(
-        "http://localhost:3000/api/v1/users/MesmoCase"
+        "http://localhost:3000/api/v1/users/MesmoCase",
       );
 
       expect(response2.status).toBe(200);
@@ -68,7 +68,7 @@ describe("GET /api/v1/users/[username]", () => {
       expect(response1.status).toBe(201);
 
       const response2 = await fetch(
-        "http://localhost:3000/api/v1/users/casediferente"
+        "http://localhost:3000/api/v1/users/casediferente",
       );
 
       expect(response2.status).toBe(200);
@@ -96,7 +96,7 @@ describe("GET /api/v1/users/[username]", () => {
       await orchestrator.runPendingMigrations();
 
       const response2 = await fetch(
-        "http://localhost:3000/api/v1/users/UsuarioQueNaoExiste"
+        "http://localhost:3000/api/v1/users/UsuarioQueNaoExiste",
       );
 
       expect(response2.status).toBe(404);
