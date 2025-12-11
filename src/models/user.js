@@ -44,6 +44,26 @@ async function findOnByUsername(username) {
   }
 }
 
+async function findOnByEmail(email) {
+  const userFound = runInsertQuery(email);
+
+  return userFound;
+
+  async function runInsertQuery(email) {
+    const findUser = await database.query({
+      text: "SELECT * FROM users WHERE LOWER(email) = LOWER($1) LIMIT 1;",
+      values: [email],
+    });
+    if (findUser.rowCount === 0) {
+      throw new NotFoundError({
+        message: "Email nao encontrado no banco de dados",
+        action: "Tente usar outro email",
+      });
+    }
+    return findUser.rows[0];
+  }
+}
+
 async function update(username, userInputValues) {
   const currentUser = await findOnByUsername(username);
 
@@ -114,6 +134,7 @@ const user = {
   create,
   update,
   findOnByUsername,
+  findOnByEmail,
 };
 
 export default user;
