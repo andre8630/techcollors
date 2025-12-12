@@ -10,7 +10,7 @@ export default function StatuPage() {
   const { data, isLoading } = useSWR("/api/v1/status", fetchAPI, {
     refreshInterval: 20000,
   });
-  console.log(data);
+
   if (isLoading)
     return <h1 style={{ color: "rgba(216, 139, 24, 1)" }}>Carregando...</h1>;
 
