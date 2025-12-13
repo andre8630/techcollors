@@ -19,7 +19,7 @@ async function create(userInputValues) {
         userInputValues.password,
       ],
     });
-    console.log(result.rows[0]);
+
     return result.rows[0];
   }
 }
@@ -38,6 +38,26 @@ async function findOnByUsername(username) {
       throw new NotFoundError({
         message: "Username nao encontrado no banco de dados",
         action: "Tente usar outro username",
+      });
+    }
+    return findUser.rows[0];
+  }
+}
+
+async function findOneById(userId) {
+  const userFound = runSelectQuery(userId);
+
+  return userFound;
+
+  async function runSelectQuery(userId) {
+    const findUser = await database.query({
+      text: "SELECT * FROM users WHERE id = $1 LIMIT 1;",
+      values: [userId],
+    });
+    if (findUser.rowCount === 0) {
+      throw new NotFoundError({
+        message: "O id nao encontrado no banco de dados",
+        action: "Tente usar outro id",
       });
     }
     return findUser.rows[0];
@@ -135,6 +155,7 @@ const user = {
   update,
   findOnByUsername,
   findOnByEmail,
+  findOneById,
 };
 
 export default user;
