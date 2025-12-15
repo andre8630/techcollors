@@ -13,6 +13,7 @@ async function getHandler(request, response) {
   const sessionToken = request.cookies.session_id;
 
   const sessionObject = await session.findValidSessionByToken(sessionToken);
+
   await session.renew(sessionObject.id);
   controller.setSessionCookie(sessionObject.token, response);
   const userFound = await user.findOneById(sessionObject.user_id);
