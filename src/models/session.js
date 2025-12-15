@@ -24,13 +24,15 @@ async function create(userId) {
 
 async function findValidSessionByToken(sessionToken) {
   const sessionFound = await runSelectQuery(sessionToken);
+
   return sessionFound;
 
   async function runSelectQuery(sessionToken) {
     const results = await database.query({
-      text: "SELECT * FROM sessions WHERE token = $1 AND expires_at > NOW() LIMIT 1 ;",
+      text: "SELECT * FROM sessions WHERE token = $1 AND expires_at > updated_at LIMIT 1 ;",
       values: [sessionToken],
     });
+
     if (results.rowCount === 0) {
       throw new UnauthorizedError({
         message: "O id nao encontrado no banco de dados",
@@ -57,9 +59,24 @@ async function renew(sessionId) {
   }
 }
 
+async function expireById(sessionId) {
+  const updatedSession = await runUpdateQuery(sessionId);
+
+  return updatedSession;
+
+  async function runUpdateQuery(sessionId) {
+    const results = await database.query({
+      text: "UPDATE sessions SET expires_at = expires_at - interval '1 year', updated_at = NOW() WHERE id = $1 RETURNING * ;",
+      values: [sessionId],
+    });
+    return results.rows[0];
+  }
+}
+
 const session = {
   create,
   renew,
+  expireById,
   findValidSessionByToken,
   expireAtMilleSeconds,
 };
