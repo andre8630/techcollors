@@ -86,7 +86,7 @@ describe("DELETE /api/v1/sessions", () => {
         const cacheControl = response.headers.get("Cache-Control");
 
         expect(cacheControl).toBe(
-          "no-store, no-cache, max-age=0, must-revalidate"
+          "no-store, no-cache, max-age=0, must-revalidate",
         );
 
         const responseBody = await response.json();
@@ -101,10 +101,10 @@ describe("DELETE /api/v1/sessions", () => {
         });
 
         expect(
-          responseBody.expires_at < sessionObject.expires_at.toISOString()
+          responseBody.expires_at < sessionObject.expires_at.toISOString(),
         ).toBe(true);
         expect(
-          responseBody.updated_at > sessionObject.updated_at.toISOString()
+          responseBody.updated_at > sessionObject.updated_at.toISOString(),
         ).toBe(true);
 
         //COOKIES ASSERTIONS
@@ -128,7 +128,7 @@ describe("DELETE /api/v1/sessions", () => {
             headers: {
               Cookie: `session_id=${sessionObject.token}`,
             },
-          }
+          },
         );
         console.log(doubleCheckResponse);
         expect(doubleCheckResponse.status).toBe(401);
