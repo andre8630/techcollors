@@ -67,7 +67,7 @@ describe("DELETE /api/v1/sessions", () => {
         });
       });
 
-      test.only("With valid session", async () => {
+      test("With valid session", async () => {
         const createdUser = await orchestrator.createUser({
           username: "UsuarioComSessionValido",
         });
